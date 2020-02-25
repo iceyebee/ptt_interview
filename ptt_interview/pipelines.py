@@ -4,6 +4,7 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+"""
 import pymongo
 import logging
 from scrapy.exceptions import DropItem
@@ -40,3 +41,4 @@ class MongoDBPipeline(object):
             self.db[self.collection].insert_one(dict(item))
             logging.debug("Added to MongoDB database!")
         return item
+"""
