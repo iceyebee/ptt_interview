@@ -8,7 +8,8 @@ You can set up the work environment using docker.
 
 or, manually install:
 
-`$ cd ptt_interview/`
+`$ cd ptt_interview/ptt_interview/`
+
 `$ pip3 install -r requirement.txt`
 
 Dependencies:
@@ -92,7 +93,7 @@ ppt_interview/
 (To create your own project, run this commend:
 `$ scrapy startproject [new project name]`)
 # Set up browser settings
-IMPORTANT: your spider program will soon face connection problem if you do not set up a proper user-agent setting.
+IMPORTANT: your spider program will soon face some connection problems if you do not set up a proper **user-agent** setting.
 
 To get your setting as a string: 
 1. Go to **View** > **Developer Options** > **Elements**.
@@ -111,55 +112,67 @@ Search **USER-AGENT** and put in your own setting
 In ***ptt.py***:
 Search ***your setting*** and replace it with your string.
 
-Now your program will probably work.
+Now your program will probably work. You may go to the Run section to start testing and come back later to modify ***settings.py***. 
 
 # Modify settings.py
-Scrapy has a more complete architecture for web crawling, as follows.
-
-BEFORE RUNNING, we need to decide how to adjust the ***settings.py*** file to connect to DB, extensions, and other custom stuff that best suits our needs. 
+Scrapy has a more complete architecture for web crawling, as follows. 
 
 ![](https://i.imgur.com/eBwgZbO.png)
+
+BEFORE RUNNING, we need to decide how to adjust the ***settings.py*** in order to connect to DB, extensions, and other custom stuff.
 
 Here is an example from this project:
 
 # * To run with MongoDB:
-Use: In our project, we use MongoDB to store parsed data by updating (thus, avoiding repetitive inserts)
+In our project, we use MongoDB to store parsed data by updating (thus, avoiding repetitive inserts).
 1. Search **Configure mongodb item pipelines** in ***settings.py***
 2. Set `MONGO_URI`, `MONGO_DATABASE`, and the corresponding dictionary of `ITEM_PIPELINES` by uncommenting them (make sure to find the right ITEM_PIPELINES!).
 
 - - - 
-If you have not already, install **MongoDB**
+If you have not already, install **MongoDB**.
+
 Start mongod process and mongo server before running the program.
+
 `$ mongod`
+
 `$ mongo`
+
 Check if mongod process is runing:
-`ps -ax | grep mongo`
+
+`ps aux | grep -v grep | grep mongod`
 * For more MongoDB commands and installation instructions, go to https://docs.mongodb.com/manual/administration/install-community (community edition)
 - - - 
 3. Go to scrapy folder. Run scrapy `$scrapy crawl ppt [...]`
 4. After running, go to mongo server to see stored data. 
-example commands:
+
+Example commands:
+
 `> use ptt_interview`
+
 `> show collections`
+
 `> db.[collection].find().limit(1)`
 
 ***Alternatively***, if your docker is working well  (`$docker run hello-world`), the redis-cli can also be started by the ***docker-compose.yml*** file or the following docker commands:
+
 `$ docker pull mongo`
+
 `$ docker run -d --name mymongo -p 27017-27019:27017-27019 mongo`
+
 `$ docker exec -it mymongo bash`
 
 # * To run with extensions to send notifcations
-* First, you need sender's account info and the receiver email
-* Modify the code for extension in ***middlewares.py***, which were made easy by using default signals like *spider_closed* to perform actions (in this case, sending a message of run stats) when the spider is done as written in the `SendMailWhenDone` class.
-* Search **Enable or disable your own extensions** in ***settings.py*** and uncomment `MYEXT_ENABLED` to run your custom extension. There are also scrapy's default extensions (https://docs.scrapy.org/en/latest/topics/extensions.html#).
+* First, you need sender's account info and the receiver's email
+* See modified code for custom extension in ***middlewares.py***, which are made easy by using default signals like *spider_closed* to perform actions in the `SendMailWhenDone` class.
+* Search **Enable or disable your own extensions** in ***settings.py*** and uncomment `MYEXT_ENABLED` to run with custom extension. There are also scrapy's default extensions (https://docs.scrapy.org/en/latest/topics/extensions.html#).
 * Also, `EXTENSIONS = {'ptt_interview.middlewares.SendMailWhenDone': 80,}` needs to be uncommented.
     
 NOTICE: This email notification is not working properly after 2 successful tries. The reason is probably that the gmail mail server allows the connection only for a certain number of times. So, to be improved!
 
 # * To use Redis on master machine:
-Use: Good for master-slave mechanism. When running, more data loss are expected with speed improvement using the Redis pipeline. [Notes: redis is stored in-memory and can resume last session.]
+Redis is good for the master-slave mechanism. When running, more data loss are expected with speed improvement using the Redis pipeline. 
 
-* The master machine connects to Redis (and, maybe, DB); slave machines can connect to Redis and the DB like mongoDB (or other DB) for storing.
+* The master machine connects to Redis (and, maybe, a database); slave machines can connect to Redis and database like mongoDB for storing.
 * The slave machines help to download requests from and store it back to master’s Redis by first getting some urls from master’s Redis.
 
 This fundenmentally affects the scrapy framework from requests, scheduler, to item pipelines.
@@ -176,20 +189,27 @@ In ***settings.py***:
 * Set `SCHEDULER`, `DUPEFILTER_CLASS` for avoiding receptive data, `SCHEDULER_PERSIST`, `SCHEDULER_QUEUE_CLASS`, `ITEM_PIPELINES`, `REDIS_HOST`, `REDIS_PORT`, `REDIS_ENCODING` for Chinese (uncomment them)
 * Remember to set REDIS_HOST with master's IP address:
     * Getting IP addresses:
+    
     `$ ipconfig getifaddr en1` (Ethernet)
+    
     `$ ipconfig getifaddr en0` (Wireless)
 
 Finally...
 1. Install Redis (https://redis.io/topics/quickstart)
 2. Put your IP address in the conf file as `bind [IP address]` and comment out the original bind setting. 
-4. Start redis server `$ redis-server --protected-mode no`
+4. Start redis server 
+`$ redis-server --protected-mode no`
 5. Go to scrapy folder. Run scrapy 
  `$scrapy crawl ppt [...]` (master)
  `$crawl ppt [...]` (slave)
-4. Test `$redis-cli -h [master ip addr] `
+4. Test `$redis-cli -h [master ip addr] `.
+
  example commends: 
+ 
  `> KEYS`
+
  `> LRANGE ptt:items 0 100`
+ 
  (*ptt:items* is a set datatype.)
 * for more command lines: https://redis.io/commands
 
@@ -218,9 +238,13 @@ So please use the following: (i.e. for 2/24-2/25)
  
  To make it go through all popular boards, 
  change this line in ***ptt.py***
+
  `for b in board_divs[101:102]:`
+
  to
+
  `for b in board_divs:`
+ 
  to browse through all boards.
  
 # More on improvements
