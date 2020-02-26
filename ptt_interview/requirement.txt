@@ -1,0 +1,6 @@
+scrapy
+pymongo
+BeautifulSoup4
+requests
+scrapy-redis
+datetime
