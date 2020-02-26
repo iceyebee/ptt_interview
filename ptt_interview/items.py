@@ -9,7 +9,6 @@ import scrapy
 
 class PttInterviewItem(scrapy.Item):
     board_name = scrapy.Field()
-    thread_url = scrapy.Field()
     # define the fields for your item here like:
     authorId = scrapy.Field()
     authorName = scrapy.Field()

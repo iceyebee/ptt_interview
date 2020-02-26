@@ -10,6 +10,7 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 BOT_NAME = 'ptt_interview'
+#comment this out for redis pipeline
 
 SPIDER_MODULES = ['ptt_interview.spiders']
 NEWSPIDER_MODULE = 'ptt_interview.spiders'
@@ -65,19 +66,25 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
+# Enable or disable your own extensions
+#MYEXT_ENABLED = True    
+
+#EXTENSIONS = {
+    #'ptt_interview.middlewares.SendMailWhenDone': 80,
+#}
+
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
+# ITEM_PIPELINES = {
 #    'ptt_interview.pipelines.PttInterviewPipeline': 300,
 #}
 
-#ITEM_PIPELINES = {'ptt_interview.pipelines.MongoDBPipeline',}
+# Configure mongodb item pipelines
 MONGO_URI = 'mongodb://localhost:27017'
-#MONGODB_SERVER = "localhost"
-#MONGODB_PORT = 27017
 MONGO_DATABASE = 'ptt_interview'
 ITEM_PIPELINES = {'ptt_interview.pipelines.MongoDBPipeline':150, }
 
+# Configure redis item pipelines
 #SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 #DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 #SCHEDULER_PERSIST = True
@@ -111,10 +118,3 @@ ITEM_PIPELINES = {'ptt_interview.pipelines.MongoDBPipeline':150, }
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-
-MYEXT_ENABLED = True    
-
-EXTENSIONS = {
-    'ptt_interview.middlewares.SendMailWhenDone': 80,
-    #'scrapy.extensions.statsmailer.StatsMailer': 500,
-}

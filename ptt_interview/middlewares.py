@@ -6,8 +6,6 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-#from scrapy.mail import MailSender
-
 import smtplib, ssl
 import time
 
@@ -15,44 +13,36 @@ class SendMailWhenDone(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
-    scrape_timestamps = []
-    #mailer = MailSender()
+
     def __init__(self, stats):
         self.stats = stats
+
     @classmethod
     def from_crawler(cls, crawler):
         # This method is used by Scrapy to create your spiders.
         s = cls(crawler.stats)
         #email notificaiton when ptt is done
         crawler.signals.connect(s.spider_closed, signal=signals.spider_closed)#email notificaiton when ptt is done
-        #record last scrape time
-        crawler.signals.connect(s.item_scraped, signal=signals.item_scraped)
         #email notification when crawling is idle
         #crawler.signals.connect(s.spider_idle, signal=signals.spider_idle) 
         return s
-    def item_scraped(self, spider):
-        self.scrape_timestamps.append(time.time())
-        """
     def spider_idle(self, spider):
-        if len(self.scrape_timestamps) >= 1:
-            body = "Spider has been idled for %ss." %(time.time() - self.scrape_timestamps[len(self.scrape_timestamps)-1])
-        else:
-            body = "First scrape is idle..."
+        message = "Spider is idle..."
+        print(message)
         to_mail = "i.ifan.lin@gmail.com"
         port = 587
         smtp_server = "smtp.gmail.com"
         sender_email = "ivyifan85@gmail.com"
         context = ssl.create_default_context()
         password = input("Type your password and press enter: ")
-        with smtplib.SMTP(self.smtp_server, self.port) as server:
+        with smtplib.SMTP(smtp_server, port) as server:
             server.ehlo()  # Can be omitted
-            server.starttls(context=self.context)
+            server.starttls(context=context)
             server.ehlo()  # Can be omitted
-            server.login(self.sender_email, password)
-            server.sendmail(self.sender_email, self.to_mail, message)
+            server.login(sender_email, password)
+            server.sendmail(sender_email, to_mail, message)
             server.quit()
-            print(body + "Notifying...")
-        """
+            print("Notifying...")
     def spider_closed(self, spider):
         spider_stats = self.stats.get_stats(spider)
         body = "Global stats\n\n"

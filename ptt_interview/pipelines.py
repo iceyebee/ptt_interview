@@ -4,7 +4,7 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-"""
+
 import pymongo
 import logging
 from scrapy.exceptions import DropItem
@@ -37,8 +37,9 @@ class MongoDBPipeline(object):
             if not data:
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
+        #insert data
+        #if repeated, do not insert
         if valid:
-            self.db[self.collection].insert_one(dict(item))
+            self.db[self.collection].update({'canonicalUrl': item['canonicalUrl']}, dict(item), upsert=True)            #self.db[self.collection].update({'thread_url': item['thread_url']}, {$set: dict(item)}, {upsert: true})
             logging.debug("Added to MongoDB database!")
         return item
-"""
