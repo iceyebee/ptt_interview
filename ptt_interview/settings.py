@@ -16,8 +16,8 @@ SPIDER_MODULES = ['ptt_interview.spiders']
 NEWSPIDER_MODULE = 'ptt_interview.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'ptt_interview (+http://www.yourdomain.com)'
-USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36"
+# USER_AGENT = 'ptt_interview (+http://www.yourdomain.com)'
+USER_AGENT = *your own setting*
 # USER_AGENT = 'scrapy-redis (+https://github.com/rolando/scrapy-redis)'
 
 # Obey robots.txt rules
@@ -70,7 +70,7 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 #MYEXT_ENABLED = True    
 
 #EXTENSIONS = {
-    #'ptt_interview.middlewares.SendMailWhenDone': 80,
+#    'ptt_interview.middlewares.SendMailWhenDone': 80,
 #}
 
 # Configure item pipelines
@@ -80,9 +80,9 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 #}
 
 # Configure mongodb item pipelines
-MONGO_URI = 'mongodb://localhost:27017'
-MONGO_DATABASE = 'ptt_interview'
-ITEM_PIPELINES = {'ptt_interview.pipelines.MongoDBPipeline':150, }
+#MONGO_URI = 'mongodb://localhost:27017'
+#MONGO_DATABASE = 'ptt_interview'
+#ITEM_PIPELINES = {'ptt_interview.pipelines.MongoDBPipeline':150, }
 
 # Configure redis item pipelines
 #SCHEDULER = "scrapy_redis.scheduler.Scheduler"
@@ -94,7 +94,7 @@ ITEM_PIPELINES = {'ptt_interview.pipelines.MongoDBPipeline':150, }
 #    'scrapy_redis.pipelines.RedisPipeline': 300,
 #}
 
-#REDIS_HOST = "192.168.0.14"
+#REDIS_HOST = *your ip address*
 #REDIS_PORT = 6379
 #REDIS_ENCODING = "utf-8"
 

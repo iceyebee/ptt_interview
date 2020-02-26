@@ -24,7 +24,7 @@ class PttSpider(scrapy.Spider):
     def start_requests(self):
         time.sleep(2)
         get_main = requests.get(self.main_url, headers \
-            = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36"
+            = {"User-Agent": *your setting here*
             })
         main_content = get_main.text
         site_soup = BeautifulSoup(main_content, 'html.parser')
@@ -163,9 +163,7 @@ class PttSpider(scrapy.Spider):
     def get_dates(self, url):
         time.sleep(2)
         get_next_pg_txt = requests.get(url, headers \
-                            = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel \
-                            Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) \
-                            Chrome/72.0.3626.96 Safari/537.36" }).text
+                            = {"User-Agent": *your setting here* }).text
         dates = BeautifulSoup(get_next_pg_txt, 'html.parser').select("div.date")
         #dates = BeautifulSoup(get_next_pg_txt, 'html.parser').select("div.title")
         date_dict = {}
@@ -177,9 +175,7 @@ class PttSpider(scrapy.Spider):
         #time.sleep(2)
         top_date = date_dict[1].replace(' ', '0')
         #get_thread_txt = requests.get(self.base_url+top_date, headers \
-                        #= {"User-Agent": "Mozilla/5.0 (Macintosh; Intel \
-                        #Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) \
-                        #Chrome/72.0.3626.96 Safari/537.36" }).text
+                        #= {"User-Agent": *your setting here* }).text
         #top_date_str = BeautifulSoup(get_thread_txt, 'html.parser').select("span.article-meta-value")[3].text
         year = 2020
         top_date_str = "{year}/{date}".format(year=year, date=top_date)
@@ -190,9 +186,7 @@ class PttSpider(scrapy.Spider):
         #time.sleep(2)
         update_date = date_dict.get(index).replace(' ', '0')
         #get_thread_txt = requests.get(self.base_url+update_date, headers \
-                #= {"User-Agent": "Mozilla/5.0 (Macintosh; Intel \
-                #Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) \
-                #Chrome/72.0.3626.96 Safari/537.36" }).text
+                #= {"User-Agent": *your setting here* }).text
         #update_date_str = BeautifulSoup(get_thread_txt, 'html.parser').select("span.article-meta-value")[3].text
         year = 2020
         update_date_str = "{year}/{date}".format(year=year, date=update_date)

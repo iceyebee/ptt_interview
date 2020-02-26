@@ -29,12 +29,12 @@ class SendMailWhenDone(object):
     def spider_idle(self, spider):
         message = "Spider is idle..."
         print(message)
-        to_mail = "i.ifan.lin@gmail.com"
-        port = 587
         smtp_server = "smtp.gmail.com"
-        sender_email = "ivyifan85@gmail.com"
+        port = 587
         context = ssl.create_default_context()
+        sender_email = input("Type sender's email and press enter: ")
         password = input("Type your password and press enter: ")
+        to_mail = input("Type receiver's email and press enter: ")
         with smtplib.SMTP(smtp_server, port) as server:
             server.ehlo()  # Can be omitted
             server.starttls(context=context)
@@ -49,12 +49,12 @@ class SendMailWhenDone(object):
         body += "\n".join("%-50s : %s" % i for i in self.stats.get_stats().items())
         body += "\n\n%s stats\n\n" % spider.name
         body += "\n".join("%-50s : %s" % i for i in spider_stats.items())
-        to_mail = "i.ifan.lin@gmail.com"
-        port = 587
         smtp_server = "smtp.gmail.com"
-        sender_email = "ivyifan85@gmail.com"
+        port = 587
         context = ssl.create_default_context()
+        sender_email = input("Type sender's email and press enter: ")
         password = input("Type your password and press enter: ")
+        to_mail = input("Type receiver's email and press enter: ")
         with smtplib.SMTP(smtp_server, port) as server:
             server.ehlo()  # Can be omitted
             server.starttls(context=context)
