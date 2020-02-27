@@ -129,7 +129,7 @@ BEFORE RUNNING, we need to decide how to adjust the ***settings.py*** in order t
 Here is an example from this project:
 
 # * To run with MongoDB:
-In our project, we use MongoDB to store parsed data by updating (thus, avoiding repetitive inserts).
+In our project, we can adjust to use MongoDB to store parsed data by updating (thus, avoiding repetitive inserts).
 1. Search **Configure mongodb item pipelines** in ***settings.py***
 2. Set `MONGO_URI`, `MONGO_DATABASE`, and the corresponding dictionary of `ITEM_PIPELINES` by uncommenting them (make sure to find the right ITEM_PIPELINES!).
 
