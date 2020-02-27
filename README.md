@@ -75,7 +75,7 @@ ppt_interview/
     |
     - scrapy.cfg
     |
-    - docker-compose.yml         
+    - (docker-compose.yml)         
     |
     - ptt_interview/ 
        |     
