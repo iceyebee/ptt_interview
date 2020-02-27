@@ -73,7 +73,9 @@ What you will see is a scrapy project, as follows:
 ```
 ppt_interview/
     |
-    - scrapy.cfg           
+    - scrapy.cfg
+    |
+    - docker-compose.yml         
     |
     - ptt_interview/ 
        |     
@@ -83,6 +85,9 @@ ppt_interview/
        - middlewares.py
        - pipelines.py 
        - settings.py 
+       |
+       - (requirement.txt)
+       - (Dockerfile)
        |
        - spiders/
           |
@@ -112,7 +117,7 @@ Search **USER-AGENT** and put in your own setting
 In ***ptt.py***:
 Search ***your setting*** and replace it with your string.
 
-Now your program will probably work. You may go to the Run section to start testing and come back later to modify ***settings.py***. 
+Now your program will probably work. You may go to the **Run** section of this page to start testing and come back later to modify ***settings.py***. 
 
 # Modify settings.py
 Scrapy has a more complete architecture for web crawling, as follows. 
@@ -153,7 +158,7 @@ Example commands:
 
 `> db.[collection].find().limit(1)`
 
-***Alternatively***, if your docker is working well  (`$docker run hello-world`), the redis-cli can also be started by the ***docker-compose.yml*** file or the following docker commands:
+***Alternatively***, if your docker is working well  (`$docker run hello-world`), the redis-cli can also be started by the ***docker-compose.yml*** file for this project or started alone by the following docker commands:
 
 `$ docker pull mongo`
 
@@ -163,7 +168,7 @@ Example commands:
 
 # * To run with extensions to send notifcations
 * First, you need sender's account info and the receiver's email
-* See modified code for custom extension in ***middlewares.py***, which are made easy by using default signals like *spider_closed* to perform actions in the `SendMailWhenDone` class.
+* See the modified code for custom extension in ***middlewares.py***, which are made easy by using default signals like *spider_closed* to perform actions in the `SendMailWhenDone` class.
 * Search **Enable or disable your own extensions** in ***settings.py*** and uncomment `MYEXT_ENABLED` to run with custom extension. There are also scrapy's default extensions (https://docs.scrapy.org/en/latest/topics/extensions.html#).
 * Also, `EXTENSIONS = {'ptt_interview.middlewares.SendMailWhenDone': 80,}` needs to be uncommented.
     
@@ -224,7 +229,7 @@ So please use the following: (i.e. for 2/24-2/25)
 
 `$ scrapy crawl ptt -a start_month=2 -a start_day=24 -a end_month=2 -a end_day=25`
 
-...where *start_month* + *start_day* &  *end_month* + *end_day* is your own choice.
+...where *start_month* + *start_day* &  *end_month* + *end_day* are of your own choice.
 # Input limitations
  The arguments (*start_month*, *start_day*, *end_month*, *end_day*) are currently not error-catched. 
  
@@ -251,7 +256,7 @@ So please use the following: (i.e. for 2/24-2/25)
 More could be under development...
 * Input error catches
 * Enable across-the-years searching
-    * Issue: Only month and date at page levels
+    * Issue: Only getting month and date at the page level
     * Possible solution: Try going deeper to thread levels to get complete date format for `get_top_date()` and `get_update_date()` in ***ptt.py***
 
 * Add more alerts
@@ -260,7 +265,7 @@ More could be under development...
     * Issue: Test master-slave mechanism
         * Comments: The scrapy spider is kinda request-pressured, so spiders can make good use of the **request-response** mechanism, but not so sure about counting things or public variables in the public area...
     * Issue: It does not work properly if it's restarted too soon.
-    * Issue: problem with displaying Chinese in the Redis server terminal
+    * Issue: Problem with displaying Chinese in the Redis server terminal
 * Complete docker development
     * Issue: Docker system requirements cannot be met with current Home PC.
 * ...and more!
