@@ -17,7 +17,7 @@ NEWSPIDER_MODULE = 'ptt_interview.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'ptt_interview (+http://www.yourdomain.com)'
-USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36"
+USER_AGENT = *your setting here*
 # USER_AGENT = 'scrapy-redis (+https://github.com/rolando/scrapy-redis)'
 
 # Obey robots.txt rules

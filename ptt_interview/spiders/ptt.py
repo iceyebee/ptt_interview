@@ -24,7 +24,7 @@ class PttSpider(scrapy.Spider):
     def start_requests(self):
         time.sleep(2)
         get_main = requests.get(self.main_url, headers \
-            = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36"
+            = {"User-Agent": *your setting here*
             })
         main_content = get_main.text
         site_soup = BeautifulSoup(main_content, 'html.parser')
@@ -93,7 +93,6 @@ class PttSpider(scrapy.Spider):
                     update_date = self.get_update_date(date_dict, len(date_dict.keys()))
                     top_date = self.get_top_date(date_dict)
     def parse_page(self, response):
-        #get threads in first page
         min_date = response.meta['min_date']
         max_date = response.meta['max_date']
         #for every thread, if the date is right and title is not empty, go on to parse_thraed()
@@ -163,7 +162,7 @@ class PttSpider(scrapy.Spider):
     def get_dates(self, url):
         time.sleep(2)
         get_next_pg_txt = requests.get(url, headers \
-                            = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36" }).text
+                            = {"User-Agent": *your setting here* }).text
         dates = BeautifulSoup(get_next_pg_txt, 'html.parser').select("div.date")
         #dates = BeautifulSoup(get_next_pg_txt, 'html.parser').select("div.title")
         date_dict = {}
