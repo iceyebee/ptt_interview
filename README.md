@@ -267,7 +267,7 @@ More could be under development...
     * Issue: Alerts are needed for nonstop crawling attempts with no items yield
 * Understand more about scrapy with Redis
     * Issue: Test master-slave mechanism
-        * Comments: The scrapy spider is kinda request-pressured, so spiders can make good use of the **request-response** mechanism, but not so sure about counting things or public variables in the public area... To solve this, the items should be passed as *meta* between requests instead.
+        * Comments: The scrapy spider is kinda request-pressured, so spiders can make good use of the **request-response** mechanism, but not so sure about counting things or public variables in the public area... To solve this, the items could be passed as *meta* between requests instead.
     * Issue: It does not work properly if it's restarted too soon.
     * Issue: Problem with displaying Chinese in the Redis server terminal
 * Complete docker development
