@@ -261,7 +261,7 @@ More could be under development...
     * Currently, they are hard-coded to 'GMT+08:00'
 * Enable across-the-years searching
     * Issue: Only getting month and date at the page level
-    * Possible solution: Try going deeper to thread levels to get complete date format for `get_top_date()` and `get_update_date()` in ***ptt.py***. Or, for a less convenient solution, make **year** a user-input variable. If comments cross the year from original searches (assuming we can search Year 2019 and before now), their "year"s should also be adjusted. And this could be done by detecting **publishTime** that becomes smaller than the previous one to make adjustments to its year **year**. 
+    * Possible solution: Try going deeper to thread levels to get complete date format for `get_top_date()` and `get_update_date()` in ***ptt.py***. Or, for a less convenient solution, make **year** a user-input variable. If comments cross the year from original searches (assuming we can search Year 2019 and before now), their "year"s should also be adjusted. And this could be done by detecting **publishTime** that becomes smaller than the previous one to make adjustments to its "year". 
 
 * Add more alerts
     * Issue: Alerts are needed for nonstop crawling attempts with no items yield
