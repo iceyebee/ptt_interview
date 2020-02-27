@@ -222,6 +222,8 @@ Finally...
 # Run ptt.py spider program
 The main spider program is ***ptt.py***.
 
+Go to the **spiders** folder. 
+
 Normally, to run it: `$ scrapy crawl ptt `
 
 However, we added date range arguments.
