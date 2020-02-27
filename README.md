@@ -226,7 +226,7 @@ Go to the top level */ptt_interview* folder.
 
 Normally, to run it: `$ scrapy crawl ptt `
 
-However, we added date range arguments.
+However, we added date range arguments. Simply typing the above commend will not completely fill the program variables.
 So please use the following: (i.e. for 2/24-2/25)
 
 `$ scrapy crawl ptt -a start_month=2 -a start_day=24 -a end_month=2 -a end_day=25`
