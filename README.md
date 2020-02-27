@@ -257,6 +257,7 @@ So please use the following: (i.e. for 2/24-2/25)
 # More on improvements
 More could be under development...
 * Input error catches
+* Hard-coded time zone to 'GMT+08:00' for **updateTime** and **createdTime**
 * Enable across-the-years searching
     * Issue: Only getting month and date at the page level
     * Possible solution: Try going deeper to thread levels to get complete date format for `get_top_date()` and `get_update_date()` in ***ptt.py***
