@@ -242,12 +242,12 @@ So please use the following: (i.e. for 2/24-2/25)
  
  To be improved...
  
- Also, the ***ptt.py*** spider only go through the **101th** and **102th** most popular boards for testing purpose...
+ Also, the ***ptt.py*** spider only go through the **102nd** and **103rd** most popular boards for testing purpose...
  
  To make it go through all popular boards, 
  change this line in ***ptt.py***
 
- `for b in board_divs[101:102]:`
+ `for b in board_divs[101:103]:`
 
  to
 

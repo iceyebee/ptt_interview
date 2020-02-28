@@ -24,19 +24,20 @@ class PttSpider(scrapy.Spider):
     def start_requests(self):
         time.sleep(2)
         get_main = requests.get(self.main_url, headers \
-            = {"User-Agent": *your setting here*
+            = *your setting*
             })
         main_content = get_main.text
         site_soup = BeautifulSoup(main_content, 'html.parser')
         board_divs = site_soup.find_all('div', class_="board-name")
-        for b in board_divs[101:102]:
+        for b in board_divs[101:103]:
         #SEARCH ALL BOARDS
         #for b in board_divs:
-            self.item['board_name'] = b.text
             #parse each board
+            self.item['board_name'] = b.text
             time.sleep(2)
             yield scrapy.Request(self.base_url + "/bbs/" + b.text + "/index.html", \
-                callback=self.go_to_board_index, meta={'board_name': b.text})
+                callback=self.go_to_board_index, \
+                meta={'board_name': b.text})
     def go_to_board_index(self, response):
         #get board index page no
         board_name = response.meta['board_name']
@@ -57,8 +58,16 @@ class PttSpider(scrapy.Spider):
         max_date_str = '2020-' + self.end_month + '-' + self.end_day + '--23-59-59'  
         max_date = time.mktime(datetime.strptime(max_date_str, '%Y-%m-%d--%H-%M-%S').timetuple())
             #date of first and last thread on initial page (index page)
+        print(response.url)
         date_dict = self.get_dates(response.url)
-        update_date = self.get_update_date(date_dict, len(date_dict.keys())-4)
+        index_listsep = 0
+        if sum(value == '' for value in date_dict.values()) == 1:
+            for i in {k for k, v in date_dict.items() if v == ''}:
+                index_listsep = i-1
+        if index_listsep > 0:
+            update_date = self.get_update_date(date_dict, index_listsep)
+        else:
+            update_date = self.get_update_date(date_dict, len(date_dict.keys()))
         top_date = self.get_top_date(date_dict)
         
         #write turning-page logic and how it goes to page_parse function
@@ -130,7 +139,7 @@ class PttSpider(scrapy.Spider):
                 # }   
         commentTime_list = []
         for c in response.css('div.push'):
-            commentTime_str = '2020/' + c.css("span.push-ipdatetime ::text")[0].extract()[1:-1] + ':00'
+            commentTime_str = '2020/' + c.css("span.push-ipdatetime ::text")[0].extract()[-12:-1] + ':00'
             commentTime = time.mktime(datetime.strptime(commentTime_str, '%Y/%m/%d %H:%M:%S').timetuple())
             commentTime = int(round(commentTime*1000,0))
             commentTime_list.append(commentTime)
@@ -162,8 +171,8 @@ class PttSpider(scrapy.Spider):
     def get_dates(self, url):
         time.sleep(2)
         get_next_pg_txt = requests.get(url, headers \
-                            = {"User-Agent": *your setting here* }).text
-        dates = BeautifulSoup(get_next_pg_txt, 'html.parser').select("div.date")
+                            = {"User-Agent": *your setting here*}).text
+        dates = BeautifulSoup(get_next_pg_txt, 'html.parser').find_all("div", {"class": ["date", "r-list-sep"]})
         #dates = BeautifulSoup(get_next_pg_txt, 'html.parser').select("div.title")
         date_dict = {}
         for i in range(0, len(dates)):
