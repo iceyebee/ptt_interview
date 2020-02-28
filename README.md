@@ -175,7 +175,8 @@ Example commands:
 NOTICE: This email notification is not working properly after 2 successful tries. The reason is probably that the gmail mail server allows the connection only for a certain number of times. So, to be improved!
 
 # * To use Redis on master machine:
-Redis is good for the master-slave mechanism. When running, more data loss are expected with speed improvement using the Redis pipeline. 
+Redis is good for the master-slave mechanism. When running, more data loss are expected with speed improvement using the Redis pipeline.
+[Notes: It also resumes previous runs. This function is yet fully tested.] 
 
 * The master machine connects to Redis (and, maybe, a database); slave machines can connect to Redis and database like mongoDB for storing.
 * The slave machines help to download requests from and store it back to master’s Redis by first getting some urls from master’s Redis.
