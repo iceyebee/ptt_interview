@@ -158,7 +158,7 @@ Example commands:
 
 `> db.[collection].find().limit(1)`
 
-***Alternatively***, if your docker is working well  (`$docker run hello-world`), the redis-cli can also be started by the ***docker-compose.yml*** file for this project or started alone by the following docker commands:
+***Alternatively***, if your docker is working well  (`$docker run hello-world`), the mongo server can also be started by the ***docker-compose.yml*** file for this project. We write it this way because there are images available to start mongo server (or redis-cli for later session) alone simply by the following docker commands:
 
 `$ docker pull mongo`
 
@@ -166,7 +166,7 @@ Example commands:
 
 `$ docker exec -it mymongo bash`
 
-# * To run with extensions to send notifcations
+# * To add extensions to send notifcations
 * First, you need sender's account info and the receiver's email
 * See the modified code for custom extension in ***middlewares.py***, which are made easy by using default signals like *spider_closed* to perform actions in the `SendMailWhenDone` class.
 * Search **Enable or disable your own extensions** in ***settings.py*** and uncomment `MYEXT_ENABLED` to run with custom extension. There are also scrapy's default extensions (https://docs.scrapy.org/en/latest/topics/extensions.html#).
@@ -261,13 +261,13 @@ More could be under development...
     * Currently, they are hard-coded to 'GMT+08:00'
 * Enable across-the-years searching
     * Issue: Only getting month and date at the page level
-    * Possible solution: Try going deeper to thread levels to get complete date format for `get_top_date()` and `get_update_date()` in ***ptt.py***. Or, for a less convenient solution, make **year** a user-input variable. If comments cross the year from original searches (assuming we can search Year 2019 and before now), their "year"s should also be adjusted. And this could be done by detecting **publishTime** that becomes smaller than the previous one to make adjustments to its "year". 
+    * Possible solution: Try going deeper to thread levels to get complete date format for `get_top_date()` and `get_update_date()` in ***ptt.py***. Or, for a less convenient solution, make **year** a user-input variable; search years in separate runs. If comments cross the year from original posts (assuming we can search Year 2019 and before now), their "year"s should also be adjusted. And this could be done by detecting **publishTime** that becomes smaller (because the month and date get smaller) than the previous one to make adjustments to its "year". 
 
 * Add more alerts
     * Issue: Alerts are needed for nonstop crawling attempts with no items yield
 * Understand more about scrapy with Redis
     * Issue: Test master-slave mechanism
-        * Comments: The scrapy spider is kinda request-pressured, so spiders can make good use of the **request-response** mechanism, but not so sure about counting things or public variables in the public area... To solve this, the items could be passed as *meta* between requests instead.
+        * Comments: The scrapy spider is kinda request-pressured, so spiders can make good use of the **request-response** mechanism, but not so sure about counting things or public variables in the public area outside of this mechanism... If unexpected updates by another machine do happen, the items could be passed as *meta* between requests instead.
     * Issue: It does not work properly if it's restarted too soon.
     * Issue: Problem with displaying Chinese in the Redis server terminal
 * Complete docker development
