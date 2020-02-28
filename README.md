@@ -193,7 +193,7 @@ In ***settings.py***:
 
 * Search **Configure redis item pipelines**
 * Set `SCHEDULER`, `DUPEFILTER_CLASS` for avoiding receptive data, `SCHEDULER_PERSIST`, `SCHEDULER_QUEUE_CLASS`, `ITEM_PIPELINES`, `REDIS_HOST`, `REDIS_PORT`, `REDIS_ENCODING` for Chinese (uncomment them)
-* Remember to set REDIS_HOST with master's IP address:
+* Remember to set `REDIS_HOST` with master's IP address:
     * Getting IP addresses:
     
     `$ ipconfig getifaddr en1` (Ethernet)
